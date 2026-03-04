@@ -1,13 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-
-import { 
-  getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, setDoc, getDoc, query, where 
-} from "firebase/firestore";
-
-import { 
-  getAuth, signInAnonymously, onAuthStateChanged
-} from "firebase/auth";
+import { getFirestore, collection, addDoc,
+  getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -19,45 +13,42 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 };
 
-// Your web app's Firebase configuration
-// Insert your Firebase configuration below this line
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 export const db = getFirestore(app);
+const auth = getAuth(app);
+
+// Client-side helper functions
+export function signInAnonymouslyUser() {
+  return signInAnonymously(auth);
+};
 
 export function onAuthStateChangedListener(callback) {
   return onAuthStateChanged(auth, callback);
-}
+};
 
 export function getCurrentUser() {
   return auth.currentUser;
-}
+};
 
-export function signInAnonymouslyUser() {
-  return signInAnonymously(auth);
-}
-
-export function addBuildtoFirebase(build) {
+export const addBuildtoFirebase = (build) => {
   return addDoc(collection(db, "builds"), build);
-}
+};
 
-export function getBuildsFromFirebase() {
+export const getBuildsFromFirebase = () => {
   return getDocs(collection(db, "builds"));
-}
+};
 
-export function updateBuildInFirebase(buildId, updatedBuild) {
+export const getBuildById = (buildId) => {
+  return getDoc(doc(db, "builds", buildId));
+};
+
+export const updateBuildInFirebase = (buildId, updatedData) => {
   const buildRef = doc(db, "builds", buildId);
-  return updateDoc(buildRef, updatedBuild);
-}
+  return updateDoc(buildRef, updatedData);
+};
 
-export function deleteBuildFromFirebase(buildId) {
+export const deleteBuildFromFirebase = (buildId) => {
   const buildRef = doc(db, "builds", buildId);
   return deleteDoc(buildRef);
-}
-
-export function getBuildById(buildId) {
-  const buildRef = doc(db, "builds", buildId);
-  return getDoc(buildRef);
-}
+};

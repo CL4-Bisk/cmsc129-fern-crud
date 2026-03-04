@@ -25,8 +25,8 @@ function BuildDefenseSection({ setAppSections }) {
         Defense:
         <select value={defense} onChange={handleDefenseChange}>
           <option value="none">None</option>
-          <option value="armor">Armor</option>
-          <option value="shield">Shield</option>
+          <option value="armor">Physical Defense</option>
+          <option value="shield">Magical Defense</option>
         </select>
       </label>
       <label>

@@ -1,8 +1,8 @@
 import "./BuildDefenseSection.css";
 import { useState } from "react";
 import axios from "axios";
-import BuildList from "../../components/BuildList/BuildList";
-import ItemList from "../../components/ItemList/ItemList";
+import BuildList from "../../components/BuildList/BuildList.jsx";
+import ItemList from "../../components/ItemList/ItemList.jsx";
 
 
 function BuildDefenseSection({ setAppSections }) {

@@ -1,8 +1,8 @@
 // import logo from './logo.svg';
 // import './App.css';
 import { useState } from "react";
-import BuildSection from "./pages/build/BuildDefenseSection";
-import HomeSection from "./pages/home/HomeSection";
+import BuildSection from "./pages/build/BuildDefenseSection.jsx";
+import HomeSection from "./pages/home/HomeSection.jsx";
 
 function App() {
   const [sections, setSections] = useState("HOME");

@@ -7,7 +7,7 @@ function ItemList() {
     useEffect(() => {
         const fetchItems = async () => {
             try {
-                const response = await axios.get("https://mlbb-wiki-api.vercel.app/api/equipment");
+                const response = await axios.get("/api/items");
                 setItems(response.data);
             } catch (error) {
                 console.error("Error fetching items:", error);

@@ -10,6 +10,11 @@ function BuildDefenseSection({ setAppSections }) {
   const [defenseDescription, setDefenseDescription] = useState("");
 
   const handleSave = async () => {
+    if (!defenseName.trim()) {
+      alert("Please enter a build name!");
+      return;
+    }
+
     const newBuild = {
       name: defenseName,
       type: defense,
@@ -17,14 +22,18 @@ function BuildDefenseSection({ setAppSections }) {
     };
 
     try {
-      const response = await axios.get("http://localhost:5000/api/builds", newBuild);
+      const response = await axios.post("http://localhost:5000/api/builds", newBuild);
 
       if (response.ok) {
         alert("Defense Saved!");
         // Refresh the page or update state here
+        setDefenseName("");
+        setDefense("none");
+        setDefenseDescription("");
       }
     } catch (error) {
       console.error("Save failed:", error);
+      alert("Failed to save defense. Please try again.");
     }
   };
 
@@ -36,6 +45,7 @@ function BuildDefenseSection({ setAppSections }) {
         <label>Build Name:</label>
         <input 
           type="text" 
+          placeholder="Enter build name"
           value={defenseName} 
           onChange={(e) => setDefenseName(e.target.value)} 
         />
@@ -45,20 +55,8 @@ function BuildDefenseSection({ setAppSections }) {
           <option value="none">None</option>
           <option value="armor">Physical Defense</option>
           <option value="shield">Magical Defense</option>
+          <option value="hybrid">Hybrid Defense</option>
         </select>
-
-        <div className="defense-list-container">
-          <div className="defense-image-list">
-            <div className="defense-image-item" onClick={() => setDefense("armor")}>
-              <img src="/images/armor.png" alt="Armor" />
-              <span>Physical Defense</span>
-            </div>
-            <div className="defense-image-item" onClick={() => setDefense("shield")}>
-              <img src="/images/shield.png" alt="Shield" />
-              <span>Magical Defense</span>
-            </div>
-          </div>
-        </div>
 
         <ItemList />
 

@@ -15,6 +15,16 @@ app.use(express.json());
 
 // Routes
 // --- ROUTES ---
+
+app.get("/api/items", async (req, res) => {
+  try {
+    const response = await axios.get("https://mlbb-wiki-api.vercel.app/api/equipment");
+    res.json(response.data); // Forward the MLBB data to your frontend
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch MLBB data" });
+  }
+});
+
 app.get("/api/builds", async (req, res) => {
   try {
     const snapshot = await getBuildsFromFirebase();

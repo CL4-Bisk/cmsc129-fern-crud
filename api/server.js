@@ -1,3 +1,4 @@
+const axios = require("axios"); // <--- Make sure this is at the top!
 const { db, addBuildtoFirebase, getBuildsFromFirebase } = require("./firebase/firebase.js");
 
 const express = require("express");
